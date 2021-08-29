@@ -61,3 +61,13 @@ iv. Bitcoin is purchased at the Max value on the first day and sold if the Min v
 days are larger than the inital value.
 
 6. Once the successful trades are captured, it is written to the output csv file
+
+## Architecture
+
+The Arcitecture is developed using python and pyspark.
+
+Since the source dataset is very large, pyspark works well for the analysis of Bigdata.
+
+The spark code is executed on the databricks cluster.
+
+Databricks notebook file reference : src/bit_coin_analysis.dbc
