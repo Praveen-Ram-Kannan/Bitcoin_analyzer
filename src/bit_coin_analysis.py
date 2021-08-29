@@ -18,36 +18,14 @@ def spark_initializer():
 
 def bit_coin_analyzer(sqlContext):
     '''
-    Analyse the find successful trades that can happen with the given Bitcoin dataset
-
-    Approach:
-    1. After the given dataset is downloaded to the local, a spark dataframe is created with that.
-
-    2. Data cleanup - Removal of all the outliers(Data that is not useful for the prediction of
-    successful trades.
-
-    3. Transformations - Transformations needed such as Timestamp to date time(To fetch all the successful
-    trades at the day level)
-
-    4. Data prep - Inorder to find the successful trades, the minimum and maximum price of bitcoin is
-    captured on the day level
-
-    5. Fetch successful trades - The successful trades for the given dataset is captured based on
-    following assumptions:
-    i. Bitcoin is purchased at the Min value on the first day and sold if the Max value on the following
-    days are larger than the inital value.
-    ii. Bitcoin is purchased at the Min value on the first day and sold if the Min value on the following
-    days are larger than the inital value.
-    iii. Bitcoin is purchased at the Max value on the first day and sold if the Max value on the following
-    days are larger than the inital value.
-    iv. Bitcoin is purchased at the Max value on the first day and sold if the Min value on the following
-    days are larger than the inital value.
+    Analyzes and finds successful trades that can happen with the given Bitcoin dataset.
 
     :param sqlContext: spark sqlcontext variable used for doing transformations to the dataset
 
     :return: A dataframe consisting of all the successful trades that can happen using the above
      mentioned approach provided the given Bitcoin dataset
     '''
+
     # read the csv file into a spark dataframe and dropping all the NaN/NULL values
     df = sqlContext.read.csv(input_data_file, header='true',
                              inferSchema='true').dropna('any')

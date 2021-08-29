@@ -27,13 +27,14 @@ def download_bitcoin_data():
     Therefore multithreading is used, to capture chunks of data in parallel
 
     Approach :
-    1. Split the entire data into 100 MB chunks
-    2. Since the file is arround 280 MB, used 3 threads to run in parallel
-    that fetches 100 MB of data each
+    1. Split the entire data into 100 MB chunks.
+    2. Since the file is around 280 MB, used 3 threads to run in parallel
+    that fetches 100 MB of data each which improves the Scalability of the
+    application.
     3. Headers used in the get request is created in such a way that the data
-    is not duplicated
+    is not duplicated.
     4. Once the chunk is fetched, the chunk is written to the output data file
-    in parallel
+    in parallel.
     :return:
     '''
     chunk_size = 104857600  # 100 MB chunks
