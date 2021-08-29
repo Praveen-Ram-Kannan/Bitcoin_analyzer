@@ -19,6 +19,7 @@ def download(header):
     except requests.exceptions.RequestException as e:
         return e
 
+
 def download_bitcoin_data():
     '''
     Since the size of the dataset is too large, if all the contents are fetched at once, the process will be slower
@@ -46,6 +47,7 @@ def download_bitcoin_data():
         t.join()
     return True
 
+
 def main():
     '''
     Main method
@@ -56,4 +58,3 @@ def main():
     request_time = time.time() - start_time
     print('Fetch completed')
     print(f'Time taken for get request is {request_time}')
-

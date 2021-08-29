@@ -5,6 +5,7 @@ from src.data_extraction import download_bitcoin_data
 input_data_file = '../data/bit_coin_data.csv'
 output_data_file = '../data/SuccessfulTradesDF.csv'
 
+
 def spark_initializer():
     '''
     Initializes spark context and sql context
@@ -13,6 +14,7 @@ def spark_initializer():
     sc = SparkContext("local", "Bit Coin Analyzer")
     sqlContext = SQLContext(sc)
     return sqlContext
+
 
 def bit_coin_analyzer(sqlContext):
     '''
@@ -80,7 +82,8 @@ def bit_coin_analyzer(sqlContext):
 
     # Union of all successful trades data that is gathered using the above mentioned 4 assumptions
     SuccessfulTradesDF = sqlContext.sql('select Buying_date, Buy_price, Selling_date, Sell_price, '
-                                        'cast((((Sell_price - Buy_price)/Buy_price)*100) as decimal(13,2)) as ROI_percentage from '
+                                        'cast((((Sell_price - Buy_price)/Buy_price)*100) as decimal(13,2)) as '
+                                        'ROI_percentage from '
                                         '((select Buying_date, Buy_Low as Buy_price, Selling_date, Sell_high as Sell_price '
                                         'from successful_trades_view '
                                         'where Buy_Low<Sell_High) '
@@ -100,6 +103,7 @@ def bit_coin_analyzer(sqlContext):
 
     return SuccessfulTradesDF
 
+
 def write_sparkdf_to_csv(df):
     '''
     Write the dataframe which contains the successful trades to an output csv file
@@ -108,6 +112,7 @@ def write_sparkdf_to_csv(df):
     '''
     df.write.csv(output_data_file)
     return True
+
 
 def main():
     '''
@@ -124,6 +129,7 @@ def main():
             print('Bitcoin data download is not successful')
     except Exception as e:
         print(e)
+
 
 if __name__ == '__main__':
     main()
